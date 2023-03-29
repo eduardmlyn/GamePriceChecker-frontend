@@ -1,3 +1,6 @@
+<!-- TODO add filtering -->
+<!-- change mat-list to mat table? -->
+<!-- if changed to table filtering and pagination would be easily implemented -->
 <mat-list class="game-list">
   <h3 class="game-list__title">Games</h3>
   <mat-list-item class="game-list__item" *ngFor="let game of games$ | async">
@@ -9,8 +12,8 @@
           <span>Release date:</span>
           <span>{{game.releaseDate}}</span>
         </ng-container>
-        <button mat-fab class="button-favorite" matTooltip="Primary" color="warn" aria-label="Example fab with a heart icon">
-          <mat-icon>favorite</mat-icon>
+        <button mat-fab class="button-favorite" matTooltip="Primary" aria-label="Example fab with a heart icon">
+          <mat-icon class="button-favorite__icon">favorite</mat-icon>
         </button>
       </mat-card-content>
     </mat-card>
