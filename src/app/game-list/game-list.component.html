@@ -1,1 +1,15 @@
-<p>game-list works!</p>
+<mat-list>
+  <h3>Games</h3>
+  <mat-list-item *ngFor="let game of games$ | async">
+    <mat-card>
+      <mat-card-header>{{game.name}}</mat-card-header>
+      <mat-card-content>
+        <img mat-card-image src="{{game.imageUrl}}" alt="Logo of {{game.name}}">
+        <ng-container *ngIf="game.releaseDate">
+          <span>Release date:</span>
+          <span>{{game.releaseDate}}</span>
+        </ng-container>
+      </mat-card-content>
+    </mat-card>
+  </mat-list-item>
+</mat-list>

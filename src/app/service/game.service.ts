@@ -20,7 +20,7 @@ export class GameService {
   }
 
   getGames(page: number): Observable<Response<Game[]>> {
-    return this.http.get<Response<Game[]>>(this.backendUrl + `/game/all?${page}`, {
+    return this.http.get<Response<Game[]>>(this.backendUrl + `/game/all?page=${page}`, {
       observe: "body"
     })
   }
