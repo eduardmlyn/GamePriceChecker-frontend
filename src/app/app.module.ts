@@ -8,6 +8,7 @@ import { GameListComponent } from './game-list/game-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatListModule} from "@angular/material/list";
+import {MatIconModule} from "@angular/material/icon"
 import {MatCardModule} from "@angular/material/card";
 import { AppRoutingModule } from './app-routing.module';
 import {HttpClientModule} from "@angular/common/http";
@@ -24,6 +25,7 @@ import {HttpClientModule} from "@angular/common/http";
     HttpClientModule,
     BrowserAnimationsModule,
     MatToolbarModule,
+    MatIconModule,
     MatListModule,
     MatCardModule,
     AppRoutingModule
