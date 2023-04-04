@@ -12,13 +12,22 @@ import {MatIconModule} from "@angular/material/icon"
 import {MatCardModule} from "@angular/material/card";
 import { AppRoutingModule } from './app-routing.module';
 import {HttpClientModule} from "@angular/common/http";
+import {MatGridListModule} from "@angular/material/grid-list";
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 @NgModule({
   declarations: [
     AppComponent,
     UserDetailComponent,
     GameDetailComponent,
-    GameListComponent
+    GameListComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +37,14 @@ import {HttpClientModule} from "@angular/common/http";
     MatIconModule,
     MatListModule,
     MatCardModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatGridListModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

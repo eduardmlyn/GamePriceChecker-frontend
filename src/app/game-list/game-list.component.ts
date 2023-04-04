@@ -1,8 +1,12 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {Game} from "../model/game.model";
 import {GameService} from "../service/game.service";
-import {map, Observable} from "rxjs";
+import {map, Observable, take} from "rxjs";
 import {Response} from "../model/response.model";
+import {Router} from "@angular/router";
+import {PageEvent} from "@angular/material/paginator";
+import {Sort} from "../model/enum/sort.enum";
+import {Order} from "../model/enum/order.enum";
 
 @Injectable()
 @Component({
@@ -12,20 +16,57 @@ import {Response} from "../model/response.model";
 })
 export class GameListComponent implements OnInit{
   games$: Observable<Game[]>
-  page: number = 1
+  page: number = 0
+  pageSize: number = 25
+  sortBy: Sort = Sort.NAME
+  order: Order = Order.ASC
+  sortOptions = Sort
+  selectedSort: Sort = Sort.NAME
+  length: number = 0
+  gameCount: number = 0
   constructor(
-    private _gameService: GameService
-  ) {
-    this.games$ = this._gameService.getGames(this.page).pipe(
-      map((response: Response<Game[]>) => response.data)
+    private _gameService: GameService,
+    private _router: Router
+  ) {  }
+
+  ngOnInit(): void {
+    this.getGames()
+    this._gameService.getGameCount().pipe(take(1)).subscribe(
+      res => {
+        this.gameCount = res.data
+        this.length = Math.ceil(this.gameCount / this.pageSize)
+      }
     )
   }
 
-  ngOnInit(): void {
-
+  onGameClick(game: Game) {
+    console.log(game)
+    this._router.navigate(['game', game.id])
   }
 
-  // private getGames(): void { // TODO use in pagination
-  //   this.games$ = this._gameService.getGames(this.page)
-  // }
+  onPageClick(e: PageEvent) {
+    this.page = e.pageIndex
+    this.getGames()
+  }
+
+  onFavouriteClick(game: Game) {
+    console.log("heart button was clicked", game)
+  }
+
+  onSortChange() {
+    // invalidate games$?
+    this.sortBy = this.selectedSort
+    this.getGames()
+  }
+
+  onChangeOrder() {
+    this.order = this.order === Order.DESC ? Order.ASC : Order.DESC
+    this.getGames()
+  }
+
+  private getGames() {
+    this.games$ = this._gameService.getGames(this.page, this.pageSize, this.sortBy, this.order).pipe(
+      map((response: Response<Game[]>) => response.data)
+    )
+  }
 }

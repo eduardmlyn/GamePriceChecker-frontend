@@ -3,19 +3,43 @@
 <!-- if changed to table filtering and pagination would be easily implemented -->
 <mat-list class="game-list">
   <h3 class="game-list__title">Games</h3>
+  <mat-form-field appearance="fill">
+    <mat-label>Sort By</mat-label>
+    <mat-select [(value)]="selectedSort" (selectionChange)="onSortChange()">
+      <mat-option *ngFor="let option of sortOptions | keyvalue" [value]="option.key">
+        {{option.value.toLowerCase()}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-icon-button aria-label="sort" (click)="onChangeOrder()">
+<!--    TODO add icon changing direction or add an arrow? -->
+    <mat-icon>sort</mat-icon>
+  </button>
   <mat-list-item class="game-list__item" *ngFor="let game of games$ | async">
-    <mat-card>
+    <mat-card (click)="onGameClick(game)">
       <mat-card-header class="item-name">{{game.name}}</mat-card-header>
       <mat-card-content>
-        <img mat-card-image src={{game.imageUrl}} alt="Logo of {{game.name}}" *ngIf="game.imageUrl">
+        <img mat-card-image class="" src="{{game.imageUrl}}" alt="Logo of {{game.name}}" *ngIf="game.imageUrl">
         <ng-container *ngIf="game.releaseDate">
           <span>Release date:</span>
           <span>{{game.releaseDate}}</span>
         </ng-container>
-        <button mat-fab class="button-favorite" matTooltip="Primary" aria-label="Example fab with a heart icon">
+        <button
+          mat-fab
+          class="button-favorite"
+          aria-label="Example fab with a heart icon"
+          (click)="onFavouriteClick(game);$event.stopPropagation()"
+        >
           <mat-icon class="button-favorite__icon">favorite</mat-icon>
         </button>
       </mat-card-content>
     </mat-card>
   </mat-list-item>
+  <mat-paginator
+    (page)="onPageClick($event)"
+    [length]="length"
+    [pageSize]="pageSize"
+    [hidePageSize]="true"
+  >
+  </mat-paginator>
 </mat-list>

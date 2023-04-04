@@ -25,3 +25,14 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+notes:
+work with this:
+favorite favorite icon	<mat-icon>favorite</mat-icon>
+favorite_border favorite border icon	<mat-icon>favorite_border</mat-icon>
+
+
+<mat-icon>swap_vert</mat-icon>
+<mat-icon>filter_list</mat-icon>
+<mat-icon>sort</mat-icon>
