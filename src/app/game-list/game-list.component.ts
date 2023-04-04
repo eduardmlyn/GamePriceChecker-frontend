@@ -12,7 +12,7 @@ import {Order} from "../model/enum/order.enum";
 @Component({
   selector: 'app-game-list',
   templateUrl: './game-list.component.html',
-  styleUrls: ['./game-list.component.css']
+  styleUrls: ['./game-list.component.scss']
 })
 export class GameListComponent implements OnInit{
   games$: Observable<Game[]>
@@ -24,6 +24,7 @@ export class GameListComponent implements OnInit{
   selectedSort: Sort = Sort.NAME
   length: number = 0
   gameCount: number = 0
+  search: string = ''
   constructor(
     private _gameService: GameService,
     private _router: Router

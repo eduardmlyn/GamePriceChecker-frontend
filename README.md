@@ -36,3 +36,13 @@ favorite_border favorite border icon	<mat-icon>favorite_border</mat-icon>
 <mat-icon>swap_vert</mat-icon>
 <mat-icon>filter_list</mat-icon>
 <mat-icon>sort</mat-icon>
+<mat-icon>search</mat-icon>
+<mat-icon>login</mat-icon>?
+<mat-icon>logout</mat-icon>?
+<mat-icon>app_registration</mat-icon>?
+
+<mat-icon>face</mat-icon>
+<mat-icon>open_in_new</mat-icon>
+
+<mat-icon>perm_identity</mat-icon>
+<mat-icon>settings</mat-icon>

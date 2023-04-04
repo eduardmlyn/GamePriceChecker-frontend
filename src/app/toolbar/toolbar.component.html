@@ -1,4 +1,9 @@
 <mat-toolbar class="app-toolbar" color="primary">
   <span class="app-toolbar__title">Game Price Checker</span>
-  <a routerLink="/games">Game List</a> <!-- TODO rework with onclick and navigaate -->
+  <button 
+    mat-fab
+    aria-label="Fab with a home icon"
+    (click)="onHomeClick()">
+    <mat-icon>home</mat-icon>
+  </button>
 </mat-toolbar>

@@ -1,0 +1,36 @@
+.game-list {
+  padding: 0 4rem;
+  width: auto;
+  &__title {
+    height: auto;
+  }
+  &__item {
+    height: auto !important;
+    border: solid;
+    border-radius: 0.5rem ;
+    margin: 0 0 1rem;
+    &-header {
+      width: auto;
+      padding-bottom: 1rem;
+    }
+  &-divider {
+    padding: 1rem;
+  }
+  }
+}
+
+
+.button-favorite {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    border: none;
+    background-color: red;
+    &__icon {
+      color: white;
+    }
+}
+
+.sort {
+  transform: rotateX(180deg);
+}
