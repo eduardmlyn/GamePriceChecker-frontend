@@ -22,6 +22,9 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
+import { MatRippleModule } from '@angular/material/core';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { SellerEnumPipe } from './enum.pipe';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import {FormsModule} from "@angular/forms";
     UserDetailComponent,
     GameDetailComponent,
     GameListComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    SellerEnumPipe
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,9 @@ import {FormsModule} from "@angular/forms";
     MatSelectModule,
     MatButtonToggleModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatRippleModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

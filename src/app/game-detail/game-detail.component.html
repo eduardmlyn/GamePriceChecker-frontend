@@ -1,51 +1,51 @@
-<div class="grid-list">
-<!--  TODO add ngIf observable async as variable
-https://stackoverflow.com/questions/39858526/display-loading-while-using-observable-with-async-pipe-in-template
--->
-  <mat-grid-list [cols]="4" rowHeight="5rem">
-    <mat-grid-tile [colspan]="4" [rowspan]="1">
-      {{gameData.name}}
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="3" [rowspan]="3" *ngIf="gameData.imageUrl !== null">
-      <img src="{{gameData.imageUrl}}">
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="1" [rowspan]="3" *ngIf="gameData.releaseDate !== null">
-      <div>Release date:</div>
-      <div>{{gameData.releaseDate}}</div>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="4" [rowspan]="5" *ngIf="gameData.description !== null">
-      <p>
-        {{gameData.description}}
-      </p>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="4" [rowspan]="1" *ngIf="gameData.description === null">
-      <p>
-        Game description not available.
-      </p>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="4" [rowspan]="3">
-      <div>Sellers:</div>
-      <ul>
-        <li *ngFor="let sellers of gameData.sellerLinks">
-          <div>{{sellers.seller}}:</div>
-          <div>
-            <div>
-              Price:
+<div class="grid-list" *ngIf="(game$ | async) as gameDetail">
+  <mat-card>
+    <mat-card-header class="game-header">
+      {{gameDetail.name}}
+    </mat-card-header>
+    <mat-divider class="header-divider"></mat-divider>
+    <mat-card-content class="game-content">
+      <div class="game-info">
+        <div class="game-release">
+          Release date: {{gameDetail.releaseDate ? gameDetail.releaseDate : 'unknown'}}
+        </div>
+        <div class="game-description">
+          <span>Game Description:</span>
+          <p>{{gameDetail.description ? gameDetail.description : 'Not available'}}</p>
+        </div>
+        <mat-list class="game-sellers">
+          <div>Sellers:</div>
+          <mat-list-item
+            class="game-sellers__item"
+            *ngFor="let seller of gameDetail.sellerLinks"
+          >
+            <div><mat-divider class="divider"></mat-divider></div>
+            <div class="seller-name">
+              {{seller.seller | sellerEnum}}
             </div>
-            <div>
-              {{sellers.price}}
+            <div class="seller-price">
+              Selling for: {{seller.price.toFixed(2)}}€
             </div>
-          </div>
+            <div class="seller-link">
+              Link to seller: 
+              <span 
+                (click)="onLinkClick(seller.link)"
+                [class.link]="seller.link"
+              >
+                {{seller.link ? seller.link : 'unavailable'}}
+              </span>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+      <div class="game-image">
+        <img src="{{gameDetail.imageUrl}}" *ngIf="gameDetail.imageUrl; else nullImage">
+        <ng-template #nullImage>
           <div>
-            <span>
-              Go to seller
-            </span>
-            <span>
-              {{sellers.link}} <!-- TODO change this  -->
-            </span>
+            Image for "{{gameDetail.name}}" not found
           </div>
-        </li>
-      </ul>
-    </mat-grid-tile>
-  </mat-grid-list>
+        </ng-template>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

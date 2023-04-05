@@ -30,7 +30,7 @@ export class GameListComponent implements OnInit{
   ) {  }
 
   ngOnInit(): void {
-    this.getGames()
+    // this.getGames()
     this._gameService.getGameCount().pipe(take(1)).subscribe(
       res => {
         this.gameCount = res.data
@@ -40,7 +40,6 @@ export class GameListComponent implements OnInit{
   }
 
   onGameClick(game: Game) {
-    console.log(game)
     this._router.navigate(['game', game.id])
   }
 
