@@ -1,0 +1,14 @@
+.app-toolbar {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  padding: 2.5rem 15rem;
+  &__title {
+    display: contents;
+    font-size: 40px;
+  }
+  &__home:hover {
+    cursor: pointer;
+  }
+}

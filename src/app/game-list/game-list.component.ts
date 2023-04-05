@@ -1,12 +1,11 @@
-import {Component, Injectable, OnInit} from '@angular/core';
+import {Component, forwardRef, Injectable, OnInit} from '@angular/core';
 import {Game} from "../model/game.model";
 import {GameService} from "../service/game.service";
 import {map, Observable, take} from "rxjs";
 import {Response} from "../model/response.model";
 import {Router} from "@angular/router";
 import {PageEvent} from "@angular/material/paginator";
-import {Sort} from "../model/enum/sort.enum";
-import {Order} from "../model/enum/order.enum";
+import {Order, Sort} from "../model/enum";
 
 @Injectable()
 @Component({
@@ -55,7 +54,6 @@ export class GameListComponent implements OnInit{
   }
 
   onSortChange() {
-    // invalidate games$?
     this.sortBy = this.selectedSort
     this.getGames()
   }

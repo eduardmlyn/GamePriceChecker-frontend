@@ -1,32 +1,36 @@
 <!-- TODO add filtering -->
-<!-- change mat-list to mat table? -->
-<!-- if changed to table filtering and pagination would be easily implemented -->
-<mat-list class="game-list">
-  <h3 class="game-list__title">Games</h3>
-  <mat-form-field appearance="fill">
-    <mat-label>Sort By</mat-label>
-    <mat-select [(value)]="selectedSort" (selectionChange)="onSortChange()">
-      <mat-option *ngFor="let option of sortOptions | keyvalue" [value]="option.key">
-        {{option.value.toLowerCase()}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <button mat-icon-button aria-label="sort" (click)="onChangeOrder()" [class.sort]="order == 'ASC'">
-    <mat-icon>sort</mat-icon>
-  </button>
-  <!-- <mat-form-field class="example-form-field">
-    <mat-label>Search for game</mat-label>
-    <input matInput type="search">
-    <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''">
-      <mat-icon>close</mat-icon>
+<div class="list-header">
+  <h1 class="list-header__title">Available Games:</h1>
+  <div class="list-header__sort">
+    <mat-form-field appearance="fill">
+      <mat-label>Sort By</mat-label>
+      <mat-select [(value)]="selectedSort" (selectionChange)="onSortChange()">
+        <mat-option *ngFor="let option of sortOptions | keyvalue" [value]="option.key">
+          {{option.value.toLowerCase()}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-icon-button aria-label="sort" (click)="onChangeOrder()" [class.sort]="order == 'ASC'">
+      <mat-icon>sort</mat-icon>
     </button>
-  </mat-form-field> -->
+  </div>
+  <!--   <mat-form-field class="example-form-field" [(ngModel)]="search">-->
+  <!--    <mat-label>Search for game</mat-label>-->
+  <!--    <input matInput type="search">-->
+  <!--    <button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''">-->
+  <!--      <mat-icon>close</mat-icon>-->
+  <!--    </button>-->
+  <!--  </mat-form-field>-->
+</div>
+<mat-list class="game-list">
   <mat-list-item class="game-list__item" *ngFor="let game of games$ | async">
     <mat-card (click)="onGameClick(game)">
       <mat-card-header class="game-list__item-header">{{game.name}}</mat-card-header>
       <mat-divider class="game-list__item-divider"></mat-divider>
       <mat-card-content>
-        <img mat-card-image class="" src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80" alt="Logo of {{game.name}}">
+        <img mat-card-image class=""
+             src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
+             alt="Logo of {{game.name}}">
         <ng-container>
           <span>Release date:</span>
           <span>TEST RELEASE DATE</span>

@@ -1,9 +1,6 @@
 .game-list {
   padding: 0 4rem;
   width: auto;
-  &__title {
-    height: auto;
-  }
   &__item {
     height: auto !important;
     border: solid;
@@ -33,4 +30,18 @@
 
 .sort {
   transform: rotateX(180deg);
+}
+
+.list-header {
+  padding: 2rem 4rem;
+  width: calc(100% - 8rem);
+  display: inline-flex;
+  justify-content: space-between;
+  &__title {
+    height: auto;
+  }
+  &__sort {
+    display: inline-flex;
+    align-items: center;
+  }
 }
