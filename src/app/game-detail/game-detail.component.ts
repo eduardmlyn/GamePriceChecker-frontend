@@ -3,8 +3,10 @@ import {GameDetail} from "../model/game-detail.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {GameService} from "../service/game.service";
 import {Response} from "../model/response.model";
-import {map, Observable, take} from "rxjs";
-import { Seller } from '../model/enum';
+import {map, Observable} from "rxjs";
+import {MatIconRegistry} from "@angular/material/icon";
+import {DomSanitizer} from "@angular/platform-browser";
+import {Seller} from "../model/enum";
 
 @Injectable()
 @Component({
@@ -12,15 +14,19 @@ import { Seller } from '../model/enum';
   templateUrl: './game-detail.component.html',
   styleUrls: ['./game-detail.component.scss']
 })
-export class GameDetailComponent implements OnInit{
+export class GameDetailComponent implements OnInit {
   game$: Observable<GameDetail>
 
   constructor(
     private _gameService: GameService,
     private _route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _matIconRegistry: MatIconRegistry,
+    private _domSanitizer: DomSanitizer
   ) {
-    
+    _matIconRegistry.addSvgIcon(Seller.STEAM, _domSanitizer.bypassSecurityTrustResourceUrl('../assets/steam.svg'))
+    _matIconRegistry.addSvgIcon(Seller.EA_GAMES, _domSanitizer.bypassSecurityTrustResourceUrl('../assets/electronic-arts.svg'))
+    _matIconRegistry.addSvgIcon(Seller.HUMBLE_BUNDLE, _domSanitizer.bypassSecurityTrustResourceUrl('../assets/humble-bundle.svg'))
   }
 
   ngOnInit(): void {
@@ -30,7 +36,9 @@ export class GameDetailComponent implements OnInit{
       return
     }
     this.game$ = this._gameService.getGameDetail(gameId).pipe(map((response: Response<GameDetail>) => {
-      return response.data}))
+      console.log(response.data.history)
+      return response.data
+    }))
   }
 
   onLinkClick(link: string) {

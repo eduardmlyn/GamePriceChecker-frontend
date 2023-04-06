@@ -1,16 +1,37 @@
 .grid-list {
-  margin: 1rem 10rem 0 10rem;
+  margin: 1rem 10rem 3rem 10rem;
   width: auto;
 }
 
 .game-header {
   font-size: xx-large;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__name {
+    flex-grow: 1;
+  }
+
+  &__release {
+    font-size: x-large;
+  }
 }
 
 .game-content {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
+
+  &-image-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__image {
+    width: 80%;
+    height: auto;
+  }
 }
 
 .header-divider {
@@ -23,11 +44,36 @@
 
 .game-description {
   margin: 1rem 0 0;
+
+  &__text {
+    margin: 0.5rem 2rem;
+  }
 }
 
 .game-sellers__item {
   height: auto !important;
   margin: 1rem 0;
+}
+
+.game-seller {
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+
+  &__name {
+    min-width: 15rem;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  &__icon {
+    margin: 0 1rem 0;
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+  }
 }
 
 .link:hover {

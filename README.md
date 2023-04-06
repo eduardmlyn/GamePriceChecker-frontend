@@ -42,7 +42,11 @@ favorite_border favorite border icon	<mat-icon>favorite_border</mat-icon>
 <mat-icon>app_registration</mat-icon>?
 
 <mat-icon>face</mat-icon>
-<mat-icon>open_in_new</mat-icon>
 
 <mat-icon>perm_identity</mat-icon>
 <mat-icon>settings</mat-icon>
+
+icons from icon duck:
+https://iconduck.com/icons/1815/electronic-arts
+https://iconduck.com/icons/61110/steam
+https://iconduck.com/icons/1868/humble-bundle

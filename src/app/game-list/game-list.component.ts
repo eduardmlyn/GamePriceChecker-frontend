@@ -30,7 +30,7 @@ export class GameListComponent implements OnInit{
   ) {  }
 
   ngOnInit(): void {
-    // this.getGames()
+    this.getGames()
     this._gameService.getGameCount().pipe(take(1)).subscribe(
       res => {
         this.gameCount = res.data
