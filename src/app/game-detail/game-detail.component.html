@@ -1,9 +1,10 @@
 <div class="grid-list" *ngIf="(game$ | async) as gameDetail">
+<!-- TODO add button to return to page -->
   <mat-card>
     <mat-card-header class="game-header">
       <span class="game-header__name">{{gameDetail.name}}</span>
       <div class="game-header__release">
-        Release date: {{gameDetail.releaseDate ? gameDetail.releaseDate : 'unknown'}}
+        Release date: {{gameDetail.releaseDate ? (gameDetail.releaseDate | date:'longDate') : 'unknown'}}
       </div>
     </mat-card-header>
     <mat-divider class="header-divider"></mat-divider>
@@ -51,4 +52,6 @@
       </mat-list>
     </mat-card-content>
   </mat-card>
+  <app-price-line-chart [priceSnapshots]="gameDetail.history"></app-price-line-chart>
 </div>
+

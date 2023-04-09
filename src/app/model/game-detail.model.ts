@@ -6,7 +6,7 @@ export interface GameDetail {
   name: string,
   description: string,
   imageUrl: string,
-  releaseDate: string,
+  releaseDate: Date,
   sellerLinks: GameSeller[],
   history: PriceSnapshot[]
 }

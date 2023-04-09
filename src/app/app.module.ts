@@ -25,6 +25,7 @@ import {FormsModule} from "@angular/forms";
 import { MatRippleModule } from '@angular/material/core';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SellerEnumPipe } from './enum.pipe';
+import { PriceLineChartComponent } from './price-line-chart/price-line-chart.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { SellerEnumPipe } from './enum.pipe';
     GameDetailComponent,
     GameListComponent,
     ToolbarComponent,
-    SellerEnumPipe
+    SellerEnumPipe,
+    PriceLineChartComponent
   ],
   imports: [
     BrowserModule,

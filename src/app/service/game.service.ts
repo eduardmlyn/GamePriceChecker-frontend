@@ -4,8 +4,7 @@ import {Observable} from "rxjs";
 import {Game} from "../model/game.model";
 import {Response} from "../model/response.model";
 import {GameDetail} from "../model/game-detail.model";
-import {Order} from "../model/enum/order.enum";
-import {Sort} from "../model/enum/sort.enum"
+import {Order, Sort} from "../model/enum";
 
 @Injectable({
   providedIn: 'root'

@@ -33,7 +33,7 @@
       <mat-card (click)="onGameClick(game)">
         <mat-card-header class="game-list__item-header">
           <div class="game-list__item-header__name">{{game.name}}</div>
-          <div>Release date {{game.releaseDate ? game.releaseDate : 'unknown'}}</div>
+          <div>Release date {{game.releaseDate ? (game.releaseDate | date:'longDate') : 'unknown'}}</div>
         </mat-card-header>
         <mat-divider class="game-list__item-divider"></mat-divider>
         <mat-card-content class="game-list__item-content">
@@ -54,9 +54,11 @@
     </mat-list-item>
     <mat-paginator
       (page)="onPageClick($event)"
-      [length]="length"
+      [length]="gameCount"
       [pageSize]="pageSize"
+      [showFirstLastButtons]="true"
       [hidePageSize]="true"
+      [pageIndex]="page"
     >
     </mat-paginator>
   </mat-list>
