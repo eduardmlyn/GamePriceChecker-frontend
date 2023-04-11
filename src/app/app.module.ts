@@ -21,11 +21,14 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatInputModule} from "@angular/material/input";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { MatRippleModule } from '@angular/material/core';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SellerEnumPipe } from './enum.pipe';
 import { PriceLineChartComponent } from './price-line-chart/price-line-chart.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import {JwtModule} from "@auth0/angular-jwt";
+import { AuthPageComponent } from './auth-page/auth-page.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import { PriceLineChartComponent } from './price-line-chart/price-line-chart.com
     GameListComponent,
     ToolbarComponent,
     SellerEnumPipe,
-    PriceLineChartComponent
+    PriceLineChartComponent,
+    ErrorPageComponent,
+    AuthPageComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +61,18 @@ import { PriceLineChartComponent } from './price-line-chart/price-line-chart.com
     MatInputModule,
     FormsModule,
     MatRippleModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem("accessToken")
+        },
+        allowedDomains: ["localhost:8080"],
+        disallowedRoutes: ["http://localhost:8080/auth", "http://localhost:8080/game"],
+        skipWhenExpired: true // remove?
+      }
+    }),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

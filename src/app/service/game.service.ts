@@ -11,6 +11,7 @@ import {Order, Sort} from "../model/enum";
 })
 export class GameService {
   backendUrl = 'http://localhost:8080'
+  page: number = 0
 
   constructor(private http: HttpClient) {
   }

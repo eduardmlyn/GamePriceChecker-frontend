@@ -16,6 +16,7 @@ import {Seller} from "../model/enum";
 })
 export class GameDetailComponent implements OnInit {
   game$: Observable<GameDetail>
+  private page: number
 
   constructor(
     private _gameService: GameService,
@@ -39,9 +40,14 @@ export class GameDetailComponent implements OnInit {
       console.log(response.data.history)
       return response.data
     }))
+    this.page = this._gameService.page
   }
 
   onLinkClick(link: string) {
     console.log(`clicked link: ${link}`)
+  }
+
+  onBackClick() {
+    this._router.navigate(['games'], { queryParams: {"page": this.page} })
   }
 }

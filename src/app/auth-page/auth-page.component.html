@@ -1,0 +1,56 @@
+<div class="container">
+  <div *ngIf="view === 'login'">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your username</mat-label>
+        <input matInput name="username" placeholder="John" [formControl]="username" required ngModel>
+        <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input matInput name="password" [type]="hide ? 'password' : 'text'" ngModel>
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <button>
+        Login
+      </button>
+    </form>
+    <div>
+      <span>Don't have an account?</span>
+      <button (click)="toggleView('register')">Register</button>
+    </div>
+  </div>
+
+
+  <div *ngIf="view === 'register'">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter a username</mat-label>
+        <input matInput name="username" placeholder="John" [formControl]="username" required ngModel>
+        <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter a password</mat-label>
+        <input matInput name="password" [type]="hide ? 'password' : 'text'" ngModel>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <button>
+        Register
+      </button>
+    </form>
+      <div>
+        <span>Already have an account? </span>
+        <button (click)="toggleView('login')">Login</button>
+      </div>
+  </div>
+</div>

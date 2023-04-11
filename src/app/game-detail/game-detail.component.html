@@ -1,57 +1,67 @@
-<div class="grid-list" *ngIf="(game$ | async) as gameDetail">
-<!-- TODO add button to return to page -->
-  <mat-card>
-    <mat-card-header class="game-header">
-      <span class="game-header__name">{{gameDetail.name}}</span>
-      <div class="game-header__release">
-        Release date: {{gameDetail.releaseDate ? (gameDetail.releaseDate | date:'longDate') : 'unknown'}}
-      </div>
-    </mat-card-header>
-    <mat-divider class="header-divider"></mat-divider>
-    <mat-card-content class="game-content">
-      <div class="game-content-image-container">
-        <img class="game-content__image" src="{{gameDetail.imageUrl}}" *ngIf="gameDetail.imageUrl; else nullImage"
-             alt="Game image">
-        <ng-template #nullImage>
-          <div>
-            Image for "{{gameDetail.name}}" not found
-          </div>
-        </ng-template>
-      </div>
-      <div class="game-description">
-        <span>Game Description:</span>
-        <p class="game-description__text">{{gameDetail.description ? gameDetail.description : 'Not available'}}</p>
-      </div>
-      <mat-list class="game-sellers">
-        <div>Sellers:</div>
-        <mat-list-item
-          class="game-sellers__item"
-          *ngFor="let seller of gameDetail.sellerLinks"
-        >
-          <div>
-            <mat-divider class="divider"></mat-divider>
-          </div>
-          <div class="game-seller">
-            <div class="game-seller__name">
-              <mat-icon class="game-seller__icon" svgIcon="{{seller.seller | sellerEnum}}"></mat-icon>
-              {{seller.seller | sellerEnum}}
+<div class="game-container" *ngIf="(game$ | async) as gameDetail">
+  <div class="game-container__back-button">
+    <button
+      mat-fab
+      class="button-back"
+      aria-label="Fab with back icon"
+      (click)="onBackClick()"
+    >
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  </div>
+  <div class="game-container__info">
+    <mat-card>
+      <mat-card-header class="game-header">
+        <span class="game-header__name">{{gameDetail.name}}</span>
+        <div class="game-header__release">
+          Release date: {{gameDetail.releaseDate ? (gameDetail.releaseDate | date:'longDate') : 'unknown'}}
+        </div>
+      </mat-card-header>
+      <mat-divider class="header-divider"></mat-divider>
+      <mat-card-content class="game-content">
+        <div class="game-content-image-container">
+          <img class="game-content__image" src="{{gameDetail.imageUrl}}" *ngIf="gameDetail.imageUrl; else nullImage"
+               alt="Game image">
+          <ng-template #nullImage>
+            <div>
+              Image for "{{gameDetail.name}}" not found
             </div>
-            <div class="game-seller__price">
-              Selling for: {{seller.price.toFixed(2)}}€
+          </ng-template>
+        </div>
+        <div class="game-description">
+          <span>Game Description:</span>
+          <p class="game-description__text">{{gameDetail.description ? gameDetail.description : 'Not available'}}</p>
+        </div>
+        <mat-list class="game-sellers">
+          <div>Sellers:</div>
+          <mat-list-item
+            class="game-sellers__item"
+            *ngFor="let seller of gameDetail.sellerLinks"
+          >
+            <div>
+              <mat-divider class="divider"></mat-divider>
             </div>
-            <div
-              class="game-seller__link"
-              (click)="onLinkClick(seller.link)"
-              [class.link]="seller.link"
-            >
-              <span>Go to seller</span>
-              <mat-icon>open_in_new</mat-icon>
+            <div class="game-seller">
+              <div class="game-seller__name">
+                <mat-icon class="game-seller__icon" svgIcon="{{seller.seller | sellerEnum}}"></mat-icon>
+                {{seller.seller | sellerEnum}}
+              </div>
+              <div class="game-seller__price">
+                Selling for: {{seller.price.toFixed(2)}}€
+              </div>
+              <div
+                class="game-seller__link"
+                (click)="onLinkClick(seller.link)"
+                [class.link]="seller.link"
+              >
+                <span>Go to seller</span>
+                <mat-icon>open_in_new</mat-icon>
+              </div>
             </div>
-          </div>
-        </mat-list-item>
-      </mat-list>
-    </mat-card-content>
-  </mat-card>
-  <app-price-line-chart [priceSnapshots]="gameDetail.history"></app-price-line-chart>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+    <app-price-line-chart [priceSnapshots]="gameDetail.history"></app-price-line-chart>
+  </div>
 </div>
-

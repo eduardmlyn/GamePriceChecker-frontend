@@ -1,7 +1,17 @@
-.grid-list {
-  margin: 1rem 10rem 3rem 10rem;
-  width: auto;
+.game-container {
+  display: inline-flex;
+  width: 100%;
+
+  &__back-button {
+    margin: 1rem 3.5rem 0 3.5rem;
+  }
+
+  &__info {
+    margin: 1rem 10rem 3rem 0;
+    width: 100%;
+  }
 }
+
 
 .game-header {
   font-size: xx-large;

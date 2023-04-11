@@ -1,9 +1,9 @@
-import {Component, forwardRef, Injectable, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {Game} from "../model/game.model";
 import {GameService} from "../service/game.service";
 import {map, Observable, take} from "rxjs";
 import {Response} from "../model/response.model";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {PageEvent} from "@angular/material/paginator";
 import {Order, Sort} from "../model/enum";
 
@@ -15,7 +15,7 @@ import {Order, Sort} from "../model/enum";
 })
 export class GameListComponent implements OnInit{
   games$: Observable<Game[]>
-  page: number = 0
+  page: number
   pageSize: number = 25
   sortBy: Sort = Sort.NAME
   order: Order = Order.ASC
@@ -26,10 +26,12 @@ export class GameListComponent implements OnInit{
   search: string = ''
   constructor(
     private _gameService: GameService,
+    private _route: ActivatedRoute,
     private _router: Router
   ) {  }
 
   ngOnInit(): void {
+    this.getPageFromUrl()
     this.getGames()
     this._gameService.getGameCount().pipe(take(1)).subscribe(
       res => {
@@ -40,11 +42,17 @@ export class GameListComponent implements OnInit{
   }
 
   onGameClick(game: Game) {
+    this._gameService.page = this.page
     this._router.navigate(['game', game.id])
   }
 
   onPageClick(e: PageEvent) {
     this.page = e.pageIndex
+    this._router.navigate([], {
+      relativeTo: this._route,
+      queryParams: { page: this.page },
+      queryParamsHandling: "merge"
+    })
     this.getGames()
   }
 
@@ -66,5 +74,11 @@ export class GameListComponent implements OnInit{
     this.games$ = this._gameService.getGames(this.page, this.pageSize, this.sortBy, this.order).pipe(
       map((response: Response<Game[]>) => response.data)
     )
+  }
+
+  private getPageFromUrl() {
+    this._route.queryParams.subscribe(params => {
+      this.page = +params["page"] || 0
+    })
   }
 }
