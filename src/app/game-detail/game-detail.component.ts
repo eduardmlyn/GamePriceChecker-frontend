@@ -37,7 +37,6 @@ export class GameDetailComponent implements OnInit {
       return
     }
     this.game$ = this._gameService.getGameDetail(gameId).pipe(map((response: Response<GameDetail>) => {
-      console.log(response.data.history)
       return response.data
     }))
     this.page = this._gameService.page

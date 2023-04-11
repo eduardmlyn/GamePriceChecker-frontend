@@ -29,6 +29,7 @@ import { PriceLineChartComponent } from './price-line-chart/price-line-chart.com
 import { ErrorPageComponent } from './error-page/error-page.component';
 import {JwtModule} from "@auth0/angular-jwt";
 import { AuthPageComponent } from './auth-page/auth-page.component';
+import {MatMenuModule} from "@angular/material/menu"
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { AuthPageComponent } from './auth-page/auth-page.component';
         skipWhenExpired: true // remove?
       }
     }),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

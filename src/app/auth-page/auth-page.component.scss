@@ -1,0 +1,32 @@
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  margin: 5rem 10rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-error {
+  margin-top: 2rem;
+  padding: 0.5rem;
+  border: solid red 0.2rem;
+  box-shadow: 0.2rem 0.2rem #ffcccb;
+  border-radius: 0.5rem;
+  background-color: rgb(255, 121, 121);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+  &__submit {
+    margin-top: 0.5rem;
+  }
+  &__header {
+    font-size: larger;
+    margin-bottom: 1rem;
+  }
+}

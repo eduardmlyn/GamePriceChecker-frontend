@@ -1,9 +1,46 @@
 <mat-toolbar class="app-toolbar" color="primary">
   <span class="app-toolbar__title">Game Price Checker</span>
-  <button 
-    mat-fab
-    aria-label="Fab with a home icon"
-    (click)="onHomeClick()">
-    <mat-icon>home</mat-icon>
-  </button>
+  <div class="app-toolbar__buttons">
+    <button 
+      mat-raised-button
+      class="toolbar-button"
+      (click)="onRegisterClick()"
+      *ngIf="!(showUser$ | async)"
+    >
+      Register
+    </button>
+    <button 
+      mat-raised-button
+      class="toolbar-button"
+      (click)="onLoginClick()"
+      *ngIf="!(showUser$ | async)"
+    >
+      Login
+    </button>
+    <div 
+      class="toolbar-button"
+      *ngIf="showUser$ | async"
+    >
+      <button 
+        mat-fab
+        [matMenuTriggerFor]="menu"
+        aria-label="icon-button with a menu"
+      >
+        <mat-icon>perm_identity</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onLogoutClick()">
+          Logout
+        </button>
+        <!-- TODO add edit profile, see profile and so on -->
+      </mat-menu>
+    </div>
+    <button 
+      mat-fab
+      class="toolbar-button"
+      aria-label="Fab with a home icon"
+      (click)="onHomeClick()">
+      <mat-icon>home</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>

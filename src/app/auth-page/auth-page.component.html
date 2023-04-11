@@ -1,56 +1,61 @@
-<div class="container">
-  <div *ngIf="view === 'login'">
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-      <mat-form-field appearance="fill">
+<div class="auth-container">
+  <div *ngIf="view === viewType.LOGIN" class="auth-form">
+    <div class="auth-form__field auth-form__header">Login:</div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form__form">
+      <mat-form-field appearance="fill" class="auth-form__username auth-form__field">
         <mat-label>Enter your username</mat-label>
-        <input matInput name="username" placeholder="John" [formControl]="username" required ngModel>
-        <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
+        <input matInput formControlName="name" placeholder="John" required>
+        <mat-error *ngIf="form.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="auth-form__password auth-form__field">
         <mat-label>Enter your password</mat-label>
-        <input matInput name="password" [type]="hide ? 'password' : 'text'" ngModel>
+        <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" required>
         <button
           mat-icon-button
           matSuffix
           (click)="hide = !hide"
+          type="button"
           [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hide">
+          [attr.aria-pressed]="hide"
+        >
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
       </mat-form-field>
-      <button>
+      <button mat-raised-button type="submit" [disabled]="form.invalid" class="auth-form__submit auth-form__field">
         Login
       </button>
     </form>
-    <div>
-      <span>Don't have an account?</span>
-      <button (click)="toggleView('register')">Register</button>
-    </div>
   </div>
 
-
-  <div *ngIf="view === 'register'">
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-      <mat-form-field appearance="fill">
+  <div *ngIf="view === viewType.REGISTER" class="auth-form">
+    <div class="auth-form__field auth-form__header">Register:</div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form__form">
+      <mat-form-field appearance="fill" class="auth-form__username auth-form__field">
         <mat-label>Enter a username</mat-label>
-        <input matInput name="username" placeholder="John" [formControl]="username" required ngModel>
-        <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
+        <input matInput formControlName="name" placeholder="John" required>
+        <mat-error *ngIf="form.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="auth-form__password auth-form__field">
         <mat-label>Enter a password</mat-label>
-        <input matInput name="password" [type]="hide ? 'password' : 'text'" ngModel>
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                [attr.aria-pressed]="hide">
+        <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" required>
+        <button 
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          type="button"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
       </mat-form-field>
-      <button>
+      <button mat-raised-button type="submit" [disabled]="form.invalid" class="auth-form__submit auth-form__field">
         Register
       </button>
     </form>
-      <div>
-        <span>Already have an account? </span>
-        <button (click)="toggleView('login')">Login</button>
-      </div>
+  </div>
+
+  <div *ngIf="error" class="auth-error">
+    {{error}}
   </div>
 </div>

@@ -46,6 +46,7 @@
             class="button-favorite"
             aria-label="Fab with a heart icon"
             (click)="onFavouriteClick(game);$event.stopPropagation()"
+            *ngIf="user$ | async"
           >
             <mat-icon class="button-favorite__icon">favorite</mat-icon>
           </button>

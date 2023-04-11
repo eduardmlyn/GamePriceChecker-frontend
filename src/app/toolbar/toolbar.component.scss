@@ -8,7 +8,13 @@
     display: contents;
     font-size: 40px;
   }
-  &__home:hover {
-    cursor: pointer;
+  &__buttons {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
   }
+}
+
+.toolbar-button {
+  margin: 0 2rem 0 0;
 }

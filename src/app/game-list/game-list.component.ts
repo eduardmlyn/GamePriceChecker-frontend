@@ -6,6 +6,7 @@ import {Response} from "../model/response.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PageEvent} from "@angular/material/paginator";
 import {Order, Sort} from "../model/enum";
+import { AuthService } from '../service/auth.service';
 
 @Injectable()
 @Component({
@@ -15,8 +16,9 @@ import {Order, Sort} from "../model/enum";
 })
 export class GameListComponent implements OnInit{
   games$: Observable<Game[]>
+  user$: Observable<boolean>
   page: number
-  pageSize: number = 25
+  pageSize: number = 10
   sortBy: Sort = Sort.NAME
   order: Order = Order.ASC
   sortOptions = Sort
@@ -26,6 +28,7 @@ export class GameListComponent implements OnInit{
   search: string = ''
   constructor(
     private _gameService: GameService,
+    private _authService: AuthService,
     private _route: ActivatedRoute,
     private _router: Router
   ) {  }
@@ -39,6 +42,7 @@ export class GameListComponent implements OnInit{
         this.length = Math.ceil(this.gameCount / this.pageSize)
       }
     )
+    this.user$ = this._authService.isLoggedIn
   }
 
   onGameClick(game: Game) {
@@ -57,6 +61,7 @@ export class GameListComponent implements OnInit{
   }
 
   onFavouriteClick(game: Game) {
+    // TODO implement
     console.log("heart button was clicked", game)
   }
 
