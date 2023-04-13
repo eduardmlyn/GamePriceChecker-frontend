@@ -13,23 +13,23 @@ export class GameService {
   backendUrl = 'http://localhost:8080'
   page: number = 0
 
-  constructor(private http: HttpClient) {
+  constructor(private _http: HttpClient) {
   }
 
   getGameCount(): Observable<Response<number>> {
-    return this.http.get<Response<number>>(this.backendUrl + '/game/count', {
+    return this._http.get<Response<number>>(this.backendUrl + '/game/count', {
       observe: "body"
     })
   }
 
   getGames(page: number, pageSize: number, sort: Sort, order: Order): Observable<Response<Game[]>> {
-    return this.http.get<Response<Game[]>>(this.backendUrl + `/game/all?page=${page}&pageSize=${pageSize}&sortBy=${sort}&order=${order}`, {
+    return this._http.get<Response<Game[]>>(this.backendUrl + `/game/all?page=${page}&pageSize=${pageSize}&sortBy=${sort}&order=${order}`, {
       observe: "body"
     })
   }
 
   getGameDetail(gameId: string): Observable<Response<GameDetail>> {
-    return this.http.get<Response<GameDetail>>(this.backendUrl + `/game?gameId=${gameId}`, {
+    return this._http.get<Response<GameDetail>>(this.backendUrl + `/game?gameId=${gameId}`, {
       observe: "body"
     })
   }

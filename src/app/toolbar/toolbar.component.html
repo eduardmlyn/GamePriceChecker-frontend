@@ -1,7 +1,7 @@
 <mat-toolbar class="app-toolbar" color="primary">
   <span class="app-toolbar__title">Game Price Checker</span>
   <div class="app-toolbar__buttons">
-    <button 
+    <button
       mat-raised-button
       class="toolbar-button"
       (click)="onRegisterClick()"
@@ -9,7 +9,7 @@
     >
       Register
     </button>
-    <button 
+    <button
       mat-raised-button
       class="toolbar-button"
       (click)="onLoginClick()"
@@ -17,11 +17,11 @@
     >
       Login
     </button>
-    <div 
+    <div
       class="toolbar-button"
       *ngIf="showUser$ | async"
     >
-      <button 
+      <button
         mat-fab
         [matMenuTriggerFor]="menu"
         aria-label="icon-button with a menu"
@@ -32,10 +32,16 @@
         <button mat-menu-item (click)="onLogoutClick()">
           Logout
         </button>
+        <button mat-menu-item (click)="onFavouritesClick()">
+          Favorites
+        </button>
+        <button mat-menu-item (click)="onProfileClick()">
+          Profile
+        </button>
         <!-- TODO add edit profile, see profile and so on -->
       </mat-menu>
     </div>
-    <button 
+    <button
       mat-fab
       class="toolbar-button"
       aria-label="Fab with a home icon"

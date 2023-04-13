@@ -6,6 +6,7 @@ import {ErrorPageComponent} from "./error-page/error-page.component";
 import {UserDetailComponent} from "./user-detail/user-detail.component";
 import {AuthPageComponent} from "./auth-page/auth-page.component";
 import {AuthGuard} from "./auth.guard";
+import {UserFavoritesComponent} from "./user-favorites/user-favorites.component";
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'game/:gameId', component: GameDetailComponent},
   {path: 'auth', component: AuthPageComponent},
   {path: 'user', component: UserDetailComponent, canActivate: [AuthGuard]},
+  {path: 'favorites', component: UserFavoritesComponent, canActivate: [AuthGuard]},
   {path: '**', component: ErrorPageComponent}
 ]
 

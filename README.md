@@ -50,3 +50,6 @@ icons from icon duck:
 https://iconduck.com/icons/1815/electronic-arts
 https://iconduck.com/icons/61110/steam
 https://iconduck.com/icons/1868/humble-bundle
+
+
+TODO change enum strings in templates to using a method from component

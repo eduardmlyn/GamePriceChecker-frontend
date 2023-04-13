@@ -27,9 +27,10 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SellerEnumPipe } from './enum.pipe';
 import { PriceLineChartComponent } from './price-line-chart/price-line-chart.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import {JwtModule} from "@auth0/angular-jwt";
+import {JWT_OPTIONS, JwtHelperService, JwtModule} from "@auth0/angular-jwt";
 import { AuthPageComponent } from './auth-page/auth-page.component';
-import {MatMenuModule} from "@angular/material/menu"
+import {MatMenuModule} from "@angular/material/menu";
+import { UserFavoritesComponent } from './user-favorites/user-favorites.component'
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {MatMenuModule} from "@angular/material/menu"
     SellerEnumPipe,
     PriceLineChartComponent,
     ErrorPageComponent,
-    AuthPageComponent
+    AuthPageComponent,
+    UserFavoritesComponent
   ],
   imports: [
     BrowserModule,
@@ -69,8 +71,7 @@ import {MatMenuModule} from "@angular/material/menu"
           return localStorage.getItem("accessToken")
         },
         allowedDomains: ["localhost:8080"],
-        disallowedRoutes: ["http://localhost:8080/auth", "http://localhost:8080/game"],
-        skipWhenExpired: true // remove?
+        disallowedRoutes: ["http://localhost:8080/auth", "http://localhost:8080/game"]
       }
     }),
     ReactiveFormsModule,

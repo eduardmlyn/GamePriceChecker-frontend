@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class ToolbarComponent implements OnInit {
   showUser$: Observable<boolean>
   constructor(private _router: Router, private _authService: AuthService) {}
-  
+
   ngOnInit(): void {
     this.showUser$ = this._authService.isLoggedIn
   }
@@ -30,5 +30,13 @@ export class ToolbarComponent implements OnInit {
 
   onLogoutClick() {
     this._authService.logout()
+  }
+
+  onFavouritesClick() {
+    this._router.navigate(['favorites'])
+  }
+
+  onProfileClick() {
+
   }
 }

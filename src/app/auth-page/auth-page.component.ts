@@ -19,7 +19,7 @@ export class AuthPageComponent implements OnInit {
   view: View = View.LOGIN
   viewType = View
   hide = true
-  form: FormGroup//<{name: AbstractControl<any, any>, password: AbstractControl<any, any>}>
+  form: FormGroup & { value: FormValues }
   error: string = ''
 
   constructor(
@@ -62,7 +62,7 @@ export class AuthPageComponent implements OnInit {
     }
     this.processSubmit(this._authService.register(username, password))
   }
-  
+
   private processSubmit(res: Observable<boolean>) {
     res.pipe(take(1)).subscribe(
       res => {
