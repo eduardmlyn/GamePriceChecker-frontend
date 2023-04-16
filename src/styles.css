@@ -4,3 +4,12 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.error-box {
+  margin-top: 2rem;
+  padding: 0.5rem;
+  border: solid red 0.2rem;
+  box-shadow: 0.2rem 0.2rem #ffcccb;
+  border-radius: 0.5rem;
+  background-color: rgb(255, 121, 121);
+}

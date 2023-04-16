@@ -1,0 +1,40 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5rem 10rem;
+}
+
+.profile {
+  &-display {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+
+    &__label {
+      font-size: x-large;
+      margin-bottom: 0.5rem;
+    }
+
+    &__name {
+      font-size: large;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &-change {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+
+    &__button {
+      margin: 1rem 1rem 0;
+    }
+  }
+
+  &-delete {
+    margin-top: 1rem;
+  }
+}

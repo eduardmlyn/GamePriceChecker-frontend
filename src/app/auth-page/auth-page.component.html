@@ -1,14 +1,13 @@
 <div class="auth-container">
-  <div *ngIf="view === viewType.LOGIN" class="auth-form">
-    <div class="auth-form__field auth-form__header">Login:</div>
+  <div class="auth-form">
+    <div class="auth-form__field auth-form__header">{{ isLogin() ? 'Login' : 'Register' }}:</div>
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form__form">
       <mat-form-field appearance="fill" class="auth-form__username auth-form__field">
-        <mat-label>Enter your username</mat-label>
+        <mat-label>Enter {{ isLogin() ? 'your' : 'a' }} username</mat-label>
         <input matInput formControlName="name" placeholder="John" required>
-        <mat-error *ngIf="form.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
       <mat-form-field appearance="fill" class="auth-form__password auth-form__field">
-        <mat-label>Enter your password</mat-label>
+        <mat-label>Enter a password</mat-label>
         <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" required>
         <button
           mat-icon-button
@@ -22,40 +21,12 @@
         </button>
       </mat-form-field>
       <button mat-raised-button type="submit" [disabled]="form.invalid" class="auth-form__submit auth-form__field">
-        Login
+        {{ isLogin() ? 'Login' : 'Register' }}
       </button>
     </form>
   </div>
 
-  <div *ngIf="view === viewType.REGISTER" class="auth-form">
-    <div class="auth-form__field auth-form__header">Register:</div>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="auth-form__form">
-      <mat-form-field appearance="fill" class="auth-form__username auth-form__field">
-        <mat-label>Enter a username</mat-label>
-        <input matInput formControlName="name" placeholder="John" required>
-        <mat-error *ngIf="form.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="fill" class="auth-form__password auth-form__field">
-        <mat-label>Enter a password</mat-label>
-        <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" required>
-        <button 
-          mat-icon-button
-          matSuffix
-          (click)="hide = !hide"
-          type="button"
-          [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hide"
-        >
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-      </mat-form-field>
-      <button mat-raised-button type="submit" [disabled]="form.invalid" class="auth-form__submit auth-form__field">
-        Register
-      </button>
-    </form>
-  </div>
-
-  <div *ngIf="error" class="auth-error">
+  <div *ngIf="error" class="error-box">
     {{error}}
   </div>
 </div>

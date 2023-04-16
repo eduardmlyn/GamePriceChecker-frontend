@@ -29,13 +29,13 @@
         <mat-icon>perm_identity</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="onLogoutClick()">
+        <button mat-menu-item type="button" (click)="onLogoutClick()">
           Logout
         </button>
-        <button mat-menu-item (click)="onFavouritesClick()">
+        <button mat-menu-item type="button" (click)="onFavouritesClick()">
           Favorites
         </button>
-        <button mat-menu-item (click)="onProfileClick()">
+        <button mat-menu-item type="button" (click)="onProfileClick()">
           Profile
         </button>
         <!-- TODO add edit profile, see profile and so on -->

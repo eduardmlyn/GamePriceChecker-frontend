@@ -6,8 +6,8 @@
       <mat-form-field appearance="fill">
         <mat-label>Sort By</mat-label>
         <mat-select [(value)]="selectedSort" (selectionChange)="onSortChange()">
-          <mat-option *ngFor="let option of sortOptions | keyvalue" [value]="option.key">
-            {{option.value.toLowerCase()}}
+          <mat-option *ngFor="let option of sortOptions" [value]="option">
+            {{getSortName(option)}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -46,7 +46,7 @@
             class="button-favorite"
             aria-label="Fab with a heart icon"
             (click)="onFavouriteClick(game);$event.stopPropagation()"
-            *ngIf="user$ | async"
+            *ngIf="showHeart"
           >
             <mat-icon class="button-favorite__icon">favorite</mat-icon>
           </button>

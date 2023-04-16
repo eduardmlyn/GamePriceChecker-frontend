@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { View } from '../model/enum';
-import { AuthService } from '../service/auth.service';
+import { View } from '../../model/enum';
+import { AuthService } from '../../service/auth.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -30,6 +30,7 @@ export class ToolbarComponent implements OnInit {
 
   onLogoutClick() {
     this._authService.logout()
+    this._router.navigate(['games'])
   }
 
   onFavouritesClick() {
@@ -37,6 +38,6 @@ export class ToolbarComponent implements OnInit {
   }
 
   onProfileClick() {
-
+    this._router.navigate(['user'])
   }
 }

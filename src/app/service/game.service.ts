@@ -12,6 +12,7 @@ import {Order, Sort} from "../model/enum";
 export class GameService {
   backendUrl = 'http://localhost:8080'
   page: number = 0
+  isFavoritesPage: boolean = false
 
   constructor(private _http: HttpClient) {
   }
@@ -33,4 +34,21 @@ export class GameService {
       observe: "body"
     })
   }
+
+  getUserGameCount(): Observable<Response<number>> {
+    return this._http.get<Response<number>>(this.backendUrl + '/user/favorites/count', {
+      observe: "body"
+    })
+  }
+
+  getUserGames(page: number, pageSize: number, sort: Sort, order: Order): Observable<Response<Game[]>> {
+    return this._http.get<Response<Game[]>>(this.backendUrl + `/user/favorites?page=${page}&pageSize=${pageSize}`, { // &sortBy=${sort}&order=${order}
+      observe: "body"
+    })
+  }
+
+  gameToUser(gameId: string): Observable<Response<boolean>> {
+    return this._http.post<Response<boolean>>(this.backendUrl + `/user/favorite?gameId=${gameId}`, {}, {observe: "body"})
+  }
+
 }

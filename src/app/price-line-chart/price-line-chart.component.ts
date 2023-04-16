@@ -217,7 +217,7 @@ export class PriceLineChartComponent implements OnInit, OnChanges {
       .style("fill", this.minimumPriceColor)
       .on("mouseover", (_: any, d: any) => {
         this.tooltip.style("visibility", "visible")
-          .text(`Average price: ${d.minimumPrice.toFixed(2)}€`)
+          .text(`Minimum price: ${d.minimumPrice.toFixed(2)}€`)
       })
       .on("mouseout", () => {
         this.tooltip.style("visibility", "hidden")

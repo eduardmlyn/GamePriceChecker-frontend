@@ -25,9 +25,9 @@ export class GameDetailComponent implements OnInit {
     private _matIconRegistry: MatIconRegistry,
     private _domSanitizer: DomSanitizer
   ) {
-    _matIconRegistry.addSvgIcon(Seller.STEAM, _domSanitizer.bypassSecurityTrustResourceUrl('../assets/steam.svg'))
-    _matIconRegistry.addSvgIcon(Seller.EA_GAMES, _domSanitizer.bypassSecurityTrustResourceUrl('../assets/electronic-arts.svg'))
-    _matIconRegistry.addSvgIcon(Seller.HUMBLE_BUNDLE, _domSanitizer.bypassSecurityTrustResourceUrl('../assets/humble-bundle.svg'))
+    _matIconRegistry.addSvgIcon(this.getSellerName("STEAM"), _domSanitizer.bypassSecurityTrustResourceUrl('../assets/steam.svg'))
+    _matIconRegistry.addSvgIcon(this.getSellerName("EA_GAMES"), _domSanitizer.bypassSecurityTrustResourceUrl('../assets/electronic-arts.svg'))
+    _matIconRegistry.addSvgIcon(this.getSellerName("HUMBLE_BUNDLE"), _domSanitizer.bypassSecurityTrustResourceUrl('../assets/humble-bundle.svg'))
   }
 
   ngOnInit(): void {
@@ -43,10 +43,30 @@ export class GameDetailComponent implements OnInit {
   }
 
   onLinkClick(link: string) {
-    console.log(`clicked link: ${link}`)
+    window.open(link, "_blank")
   }
 
   onBackClick() {
-    this._router.navigate(['games'], { queryParams: {"page": this.page} })
+    const navigateTo = this._gameService.isFavoritesPage ? 'favorites' : 'games'
+
+    this._router.navigate([navigateTo], {queryParams: {"page": this.page}})
+  }
+
+  getSellerName(seller: string) {
+    console.log(seller, seller == Seller.STEAM.toString(), typeof seller, Seller.STEAM.toString())
+    switch (seller) {
+      case "HUMBLE_BUNDLE": {
+        return "Humble Bundle"
+      }
+      case "EA_GAMES": {
+        return "Electronic Arts(EA Games)"
+      }
+      case "STEAM": {
+        return "Steam"
+      }
+      default: {
+        return 'Unknown'
+      }
+    }
   }
 }

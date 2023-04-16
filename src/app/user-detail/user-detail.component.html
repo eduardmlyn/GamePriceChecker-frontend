@@ -1,1 +1,28 @@
-<p>user-detail works!</p>
+<div class="profile-container">
+  <div *ngIf="error" class="error-box">
+    The username is already taken
+  </div>
+  <div *ngIf="deleteError" class="error-box">
+    There was a problem deleting user
+  </div>
+  <div *ngIf="!isEditing" class="profile-display">
+    <span class="profile-display__label">Username:</span>
+    <span class="profile-display__name">{{username}}</span>
+    <button mat-raised-button (click)="toggleEdit()">Edit Username</button>
+  </div>
+
+  <form #usernameForm="ngForm" (ngSubmit)="onSaveClick(inputField.value)" *ngIf="isEditing" class="profile-change">
+    <mat-form-field>
+      <mat-label>Enter new username</mat-label>
+      <input matInput [(ngModel)]="newName" #inputField="ngModel" required name="username">
+      <mat-error *ngIf="inputField.invalid && inputField.touched">
+        Username cannot be empty
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button type="submit" [disabled]="usernameForm.invalid" class="profile-change__button">Save</button>
+    <button mat-raised-button type="button" (click)="toggleEdit()" class="profile-change__button">Cancel</button>
+  </form>
+  <div class="profile-delete">
+    <button mat-raised-button color="warn" (click)="onDeleteClick()">Delete Account</button>
+  </div>
+</div>

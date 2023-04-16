@@ -43,8 +43,8 @@
             </div>
             <div class="game-seller">
               <div class="game-seller__name">
-                <mat-icon class="game-seller__icon" svgIcon="{{seller.seller | sellerEnum}}"></mat-icon>
-                {{seller.seller | sellerEnum}}
+                <mat-icon class="game-seller__icon" svgIcon="{{getSellerName(seller.seller.toString())}}"></mat-icon>
+                {{getSellerName(seller.seller.toString())}}
               </div>
               <div class="game-seller__price">
                 Selling for: {{seller.price.toFixed(2)}}€

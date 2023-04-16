@@ -1,37 +1,28 @@
-import {Component, Injectable, OnInit} from '@angular/core';
+import {Component, Injectable, OnDestroy, OnInit} from '@angular/core';
 import {Game} from "../model/game.model";
 import {GameService} from "../service/game.service";
-import {map, Observable, take} from "rxjs";
+import {map, take} from "rxjs";
 import {Response} from "../model/response.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PageEvent} from "@angular/material/paginator";
-import {Order, Sort} from "../model/enum";
-import { AuthService } from '../service/auth.service';
+import {AuthService} from '../service/auth.service';
+import {BaseGameListComponent} from "../shared/abstract-game-list/base-game-list.component";
 
 @Injectable()
 @Component({
   selector: 'app-game-list',
-  templateUrl: './game-list.component.html',
-  styleUrls: ['./game-list.component.scss']
+  templateUrl: '../shared/abstract-game-list/base-game-list.component.html',
+  styleUrls: ['../shared/abstract-game-list/base-game-list.component.scss']
 })
-export class GameListComponent implements OnInit{
-  games$: Observable<Game[]>
-  user$: Observable<boolean>
-  page: number
-  pageSize: number = 10
-  sortBy: Sort = Sort.NAME
-  order: Order = Order.ASC
-  sortOptions = Sort
-  selectedSort: Sort = Sort.NAME
-  length: number = 0
-  gameCount: number = 0
-  search: string = ''
+export class GameListComponent extends BaseGameListComponent implements OnInit, OnDestroy {
   constructor(
     private _gameService: GameService,
     private _authService: AuthService,
     private _route: ActivatedRoute,
     private _router: Router
-  ) {  }
+  ) {
+    super(_gameService, _authService, _route, _router)
+  }
 
   ngOnInit(): void {
     this.getPageFromUrl()
@@ -42,36 +33,27 @@ export class GameListComponent implements OnInit{
         this.length = Math.ceil(this.gameCount / this.pageSize)
       }
     )
-    this.user$ = this._authService.isLoggedIn
+    this.loggedInSubscription = this._authService.isLoggedIn.subscribe(state => this.showHeart = state)
+    this._gameService.isFavoritesPage = false
   }
 
-  onGameClick(game: Game) {
+  override onGameClick(game: Game) {
     this._gameService.page = this.page
-    this._router.navigate(['game', game.id])
+    super.onGameClick(game)
   }
 
-  onPageClick(e: PageEvent) {
-    this.page = e.pageIndex
-    this._router.navigate([], {
-      relativeTo: this._route,
-      queryParams: { page: this.page },
-      queryParamsHandling: "merge"
-    })
+  override onPageClick(e: PageEvent) {
+    super.onPageClick(e)
     this.getGames()
   }
 
-  onFavouriteClick(game: Game) {
-    // TODO implement
-    console.log("heart button was clicked", game)
-  }
-
-  onSortChange() {
-    this.sortBy = this.selectedSort
+  override onSortChange() {
+    super.onSortChange()
     this.getGames()
   }
 
-  onChangeOrder() {
-    this.order = this.order === Order.DESC ? Order.ASC : Order.DESC
+  override onChangeOrder() {
+    super.onChangeOrder()
     this.getGames()
   }
 
@@ -81,9 +63,7 @@ export class GameListComponent implements OnInit{
     )
   }
 
-  private getPageFromUrl() {
-    this._route.queryParams.subscribe(params => {
-      this.page = +params["page"] || 0
-    })
+  ngOnDestroy(): void {
+    this.loggedInSubscription.unsubscribe()
   }
 }

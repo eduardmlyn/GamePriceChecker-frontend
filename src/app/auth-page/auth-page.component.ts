@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../service/auth.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import { Observable, take } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import { View } from '../model/enum';
+import {Observable, take} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
+import {View} from '../model/enum';
 
 interface FormValues {
   name: string,
@@ -17,7 +17,6 @@ interface FormValues {
 })
 export class AuthPageComponent implements OnInit {
   view: View = View.LOGIN
-  viewType = View
   hide = true
   form: FormGroup & { value: FormValues }
   error: string = ''
@@ -36,7 +35,7 @@ export class AuthPageComponent implements OnInit {
 
   ngOnInit(): void {
     this._route.queryParams.subscribe(params => {
-      if (Object.values(this.viewType).includes(params["view"])) {
+      if (Object.values(View).includes(params["view"])) {
         this.view = params["view"]
       }
     })
@@ -44,13 +43,6 @@ export class AuthPageComponent implements OnInit {
 
   toggleView(view: View) {
     this.view = view
-  }
-
-  getErrorMessage(): string {
-    if (this.form.hasError('required')) {
-      return 'You must enter a value'
-    }
-    return ''
   }
 
   onSubmit() {
@@ -77,5 +69,9 @@ export class AuthPageComponent implements OnInit {
         this.error = 'Username already taken'
       }
     )
+  }
+
+  isLogin(): boolean {
+    return this.view === View.LOGIN
   }
 }

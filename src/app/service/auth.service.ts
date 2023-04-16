@@ -3,7 +3,7 @@ import {HttpClient, HttpResponse} from "@angular/common/http";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {JwtModel} from "../model/jwt.model";
 import {Response} from "../model/response.model";
-import {BehaviorSubject, catchError, map, Observable, of, tap} from "rxjs";
+import {BehaviorSubject, catchError, map, Observable, of} from "rxjs";
 import {UserService} from "./user.service";
 
 @Injectable({
@@ -42,7 +42,7 @@ export class AuthService {
   }
 
   logout() {
-    this._httpClient.post(this.backendUrl + '/user/logout',{})
+    this._httpClient.post(this.backendUrl + '/user/logout', {}).subscribe()
     localStorage.removeItem("accessToken")
     this._isLoggedIn$.next(false)
   }
@@ -51,15 +51,14 @@ export class AuthService {
     return this._isLoggedIn$.asObservable()
   }
 
-  public getCurrentUserName(): Promise<string | null> | string | null {
+  public getCurrentUserName(): string | null {
     const token = localStorage.getItem("accessToken")
     if (!token) {
       return null
     }
-    return this._jwtHelper.decodeToken()
+    return (this._jwtHelper.decodeToken(token) as { sub: string, exp: number, iat: number }).sub
   }
 
-  // is HttpResponse needed?
   private mapResponse(resp: Observable<HttpResponse<Response<JwtModel>>>): Observable<boolean> {
     return resp.pipe(
       map(
@@ -68,7 +67,7 @@ export class AuthService {
           if (body === null) {
             return false
           }
-          this.storeToken(body.data.token)
+          localStorage.setItem("accessToken", body.data.token)
           this._isLoggedIn$.next(true)
           return true
         }
@@ -77,10 +76,5 @@ export class AuthService {
         return of(false) as Observable<boolean>
       })
     )
-  }
-
-  private storeToken(token: string) {
-    localStorage.setItem("accessToken", token)
-    console.log(this._jwtHelper.decodeToken())
   }
 }
