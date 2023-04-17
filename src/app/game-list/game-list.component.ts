@@ -21,18 +21,13 @@ export class GameListComponent extends BaseGameListComponent implements OnInit, 
     private _route: ActivatedRoute,
     private _router: Router
   ) {
-    super(_gameService, _authService, _route, _router)
+    super(_gameService, _route, _router)
   }
 
   ngOnInit(): void {
     this.getPageFromUrl()
     this.getGames()
-    this._gameService.getGameCount().pipe(take(1)).subscribe(
-      res => {
-        this.gameCount = res.data
-        this.length = Math.ceil(this.gameCount / this.pageSize)
-      }
-    )
+    
     this.loggedInSubscription = this._authService.isLoggedIn.subscribe(state => this.showHeart = state)
     this._gameService.isFavoritesPage = false
   }
@@ -58,9 +53,19 @@ export class GameListComponent extends BaseGameListComponent implements OnInit, 
   }
 
   private getGames() {
-    this.games$ = this._gameService.getGames(this.page, this.pageSize, this.sortBy, this.order).pipe(
+    this.games$ = this._gameService.getGames(this.page, this.pageSize, this.sortBy, this.order, this.search).pipe(
       map((response: Response<Game[]>) => response.data)
     )
+    this._gameService.getGameCount(this.search).pipe(take(1)).subscribe(
+      res => {
+        this.gameCount = res.data
+        this.length = Math.ceil(this.gameCount / this.pageSize)
+      }
+    )
+  }
+
+  override onFilter(): void {
+    this.getGames()
   }
 
   ngOnDestroy(): void {

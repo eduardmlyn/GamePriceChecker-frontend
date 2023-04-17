@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {map, take} from "rxjs";
 import {Game} from "../model/game.model";
-import {AuthService} from "../service/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PageEvent} from "@angular/material/paginator";
 import {Response} from "../model/response.model";
@@ -17,11 +16,10 @@ export class UserFavoritesComponent extends BaseGameListComponent implements OnI
 
   constructor(
     private _gameService: GameService,
-    private _authService: AuthService,
     private _route: ActivatedRoute,
     private _router: Router
   ) {
-    super(_gameService, _authService, _route, _router)
+    super(_gameService, _route, _router)
   }
 
   ngOnInit(): void {
@@ -61,4 +59,6 @@ export class UserFavoritesComponent extends BaseGameListComponent implements OnI
       map((response: Response<Game[]>) => response.data)
     )
   }
+
+  // TODO add filtering, override onFilter method
 }

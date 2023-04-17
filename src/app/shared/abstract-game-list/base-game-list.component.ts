@@ -29,7 +29,6 @@ export class BaseGameListComponent {
 
   constructor(
     private _baseGameService: GameService,
-    private _baseAuthService: AuthService,
     private _baseRoute: ActivatedRoute,
     private _baseRouter: Router
   ) {
@@ -78,5 +77,9 @@ export class BaseGameListComponent {
         return ''
       }
     }
+  }
+
+  onFilter() {
+    
   }
 }

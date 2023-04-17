@@ -17,14 +17,14 @@ export class GameService {
   constructor(private _http: HttpClient) {
   }
 
-  getGameCount(): Observable<Response<number>> {
-    return this._http.get<Response<number>>(this.backendUrl + '/game/count', {
+  getGameCount(filter: string): Observable<Response<number>> {
+    return this._http.get<Response<number>>(this.backendUrl + `/game/count?filter=${filter}`, {
       observe: "body"
     })
   }
 
-  getGames(page: number, pageSize: number, sort: Sort, order: Order): Observable<Response<Game[]>> {
-    return this._http.get<Response<Game[]>>(this.backendUrl + `/game/all?page=${page}&pageSize=${pageSize}&sortBy=${sort}&order=${order}`, {
+  getGames(page: number, pageSize: number, sort: Sort, order: Order, filter: string): Observable<Response<Game[]>> {
+    return this._http.get<Response<Game[]>>(this.backendUrl + `/game/all?page=${page}&pageSize=${pageSize}&sortBy=${sort}&order=${order}&filter=${filter}`, {
       observe: "body"
     })
   }

@@ -73,6 +73,15 @@
     display: inline-flex;
     align-items: center;
   }
+
+  &__filter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    &-input {
+      margin: 1rem;
+    }
+  }
 }
 
 .load-spinner {
