@@ -35,14 +35,14 @@ export class GameService {
     })
   }
 
-  getUserGameCount(): Observable<Response<number>> {
-    return this._http.get<Response<number>>(this.backendUrl + '/user/favorites/count', {
+  getUserGameCount(filter: string): Observable<Response<number>> {
+    return this._http.get<Response<number>>(this.backendUrl + `/user/favorites/count?filter=${filter}`, {
       observe: "body"
     })
   }
 
-  getUserGames(page: number, pageSize: number, sort: Sort, order: Order): Observable<Response<Game[]>> {
-    return this._http.get<Response<Game[]>>(this.backendUrl + `/user/favorites?page=${page}&pageSize=${pageSize}`, { // &sortBy=${sort}&order=${order}
+  getUserGames(page: number, pageSize: number, sort: Sort, order: Order, filter: String): Observable<Response<Game[]>> {
+    return this._http.get<Response<Game[]>>(this.backendUrl + `/user/favorites?page=${page}&pageSize=${pageSize}&sortBy=${sort}&order=${order}&filter=${filter}`, {
       observe: "body"
     })
   }

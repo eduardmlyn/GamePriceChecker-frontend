@@ -25,12 +25,6 @@ export class UserFavoritesComponent extends BaseGameListComponent implements OnI
   ngOnInit(): void {
     this.getPageFromUrl()
     this.getGames()
-    this._gameService.getUserGameCount().pipe(take(1)).subscribe(
-      res => {
-        this.gameCount = res.data
-        this.length = Math.ceil(this.gameCount / this.pageSize)
-      }
-    )
     this._gameService.isFavoritesPage = true
   }
 
@@ -55,10 +49,18 @@ export class UserFavoritesComponent extends BaseGameListComponent implements OnI
   }
 
   private getGames() {
-    this.games$ = this._gameService.getUserGames(this.page, this.pageSize, this.sortBy, this.order).pipe(
+    this.games$ = this._gameService.getUserGames(this.page, this.pageSize, this.sortBy, this.order, this.search).pipe(
       map((response: Response<Game[]>) => response.data)
+    )
+    this._gameService.getUserGameCount(this.search).pipe(take(1)).subscribe(
+      res => {
+        this.gameCount = res.data
+        this.length = Math.ceil(this.gameCount / this.pageSize)
+      }
     )
   }
 
-  // TODO add filtering, override onFilter method
+  override onFilter(): void {
+    this.getGames()
+  }
 }
