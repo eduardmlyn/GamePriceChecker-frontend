@@ -17,14 +17,14 @@ export class GameService {
   constructor(private _http: HttpClient) {
   }
 
-  getGameCount(filter: string): Observable<Response<number>> {
-    return this._http.get<Response<number>>(this.backendUrl + `/game/count?filter=${filter}`, {
+  getGameCount(search: string): Observable<Response<number>> {
+    return this._http.get<Response<number>>(this.backendUrl + `/game/count?filter=${search}`, {
       observe: "body"
     })
   }
 
-  getGames(page: number, pageSize: number, sort: Sort, order: Order, filter: string): Observable<Response<Game[]>> {
-    return this._http.get<Response<Game[]>>(this.backendUrl + `/game/all?page=${page}&pageSize=${pageSize}&sortBy=${sort}&order=${order}&filter=${filter}`, {
+  getGames(page: number, pageSize: number, sort: Sort, order: Order, search: string): Observable<Response<Game[]>> {
+    return this._http.get<Response<Game[]>>(this.backendUrl + `/game/all?page=${page}&pageSize=${pageSize}&sortBy=${sort}&order=${order}&filter=${search}`, {
       observe: "body"
     })
   }
@@ -35,14 +35,14 @@ export class GameService {
     })
   }
 
-  getUserGameCount(filter: string): Observable<Response<number>> {
-    return this._http.get<Response<number>>(this.backendUrl + `/user/favorites/count?filter=${filter}`, {
+  getUserGameCount(search: string): Observable<Response<number>> {
+    return this._http.get<Response<number>>(this.backendUrl + `/user/favorites/count?filter=${search}`, {
       observe: "body"
     })
   }
 
-  getUserGames(page: number, pageSize: number, sort: Sort, order: Order, filter: String): Observable<Response<Game[]>> {
-    return this._http.get<Response<Game[]>>(this.backendUrl + `/user/favorites?page=${page}&pageSize=${pageSize}&sortBy=${sort}&order=${order}&filter=${filter}`, {
+  getUserGames(page: number, pageSize: number, sort: Sort, order: Order, search: String): Observable<Response<Game[]>> {
+    return this._http.get<Response<Game[]>>(this.backendUrl + `/user/favorites?page=${page}&pageSize=${pageSize}&sortBy=${sort}&order=${order}&filter=${search}`, {
       observe: "body"
     })
   }

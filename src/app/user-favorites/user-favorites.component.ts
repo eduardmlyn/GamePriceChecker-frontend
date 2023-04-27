@@ -60,7 +60,7 @@ export class UserFavoritesComponent extends BaseGameListComponent implements OnI
     )
   }
 
-  override onFilter(): void {
+  override onSearch(): void {
     this.getGames()
   }
 }

@@ -4,7 +4,6 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 import {JwtModel} from "../model/jwt.model";
 import {Response} from "../model/response.model";
 import {BehaviorSubject, catchError, map, Observable, of} from "rxjs";
-import {UserService} from "./user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,6 @@ export class AuthService {
   constructor(
     private _httpClient: HttpClient,
     private _jwtHelper: JwtHelperService,
-    private _userService: UserService
   ) {
   }
 
@@ -43,6 +41,11 @@ export class AuthService {
 
   logout() {
     this._httpClient.post(this.backendUrl + '/user/logout', {}).subscribe()
+    localStorage.removeItem("accessToken")
+    this._isLoggedIn$.next(false)
+  }
+
+  removeToken() {
     localStorage.removeItem("accessToken")
     this._isLoggedIn$.next(false)
   }

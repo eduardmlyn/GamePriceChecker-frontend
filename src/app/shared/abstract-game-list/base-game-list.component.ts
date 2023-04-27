@@ -2,7 +2,6 @@ import {Component} from "@angular/core";
 import {Observable, Subscription} from "rxjs";
 import {Game} from "../../model/game.model";
 import {Order, Sort} from "../../model/enum";
-import {AuthService} from "../../service/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PageEvent} from "@angular/material/paginator";
 import {GameService} from "../../service/game.service";
@@ -79,7 +78,7 @@ export class BaseGameListComponent {
     }
   }
 
-  onFilter() {
-    
+  onSearch() {
+
   }
 }

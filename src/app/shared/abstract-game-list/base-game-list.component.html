@@ -1,11 +1,11 @@
 <div *ngIf="games$ | async; else loading">
   <div class="list-header">
     <h1 class="list-header__title">Available Games:</h1>
-    <div class="list-header__filter">
-      <mat-form-field class="list-header__filter-input">
-        <input matInput placeholder="Filter" (keyup.enter)="onFilter()" [(ngModel)]="search">
+    <div class="list-header__search">
+      <mat-form-field class="list-header__search-input">
+        <input matInput placeholder="Search" (keyup.enter)="onSearch()" [(ngModel)]="search">
       </mat-form-field>
-      <button mat-raised-button color="primary" (click)="onFilter()">Filter</button>
+      <button mat-raised-button color="primary" (click)="onSearch()">Search</button>
     </div>
     <div class="list-header__sort">
       <mat-form-field appearance="fill">

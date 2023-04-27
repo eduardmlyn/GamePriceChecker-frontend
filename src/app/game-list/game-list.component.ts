@@ -27,7 +27,7 @@ export class GameListComponent extends BaseGameListComponent implements OnInit, 
   ngOnInit(): void {
     this.getPageFromUrl()
     this.getGames()
-    
+
     this.loggedInSubscription = this._authService.isLoggedIn.subscribe(state => this.showHeart = state)
     this._gameService.isFavoritesPage = false
   }
@@ -64,7 +64,7 @@ export class GameListComponent extends BaseGameListComponent implements OnInit, 
     )
   }
 
-  override onFilter(): void {
+  override onSearch(): void {
     this.getGames()
   }
 

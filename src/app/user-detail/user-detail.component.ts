@@ -49,6 +49,7 @@ export class UserDetailComponent implements OnInit {
       if (!res) {
         this.deleteError = true
       } else {
+        this._authService.removeToken()
         this._router.navigate(['games'])
       }
     })

@@ -27,29 +27,12 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 
-notes:
-work with this:
-favorite favorite icon	<mat-icon>favorite</mat-icon>
-favorite_border favorite border icon	<mat-icon>favorite_border</mat-icon>
-
-
-<mat-icon>swap_vert</mat-icon>
-<mat-icon>filter_list</mat-icon>
-<mat-icon>sort</mat-icon>
-<mat-icon>search</mat-icon>
-<mat-icon>login</mat-icon>?
-<mat-icon>logout</mat-icon>?
-<mat-icon>app_registration</mat-icon>?
-
-<mat-icon>face</mat-icon>
-
-<mat-icon>perm_identity</mat-icon>
-<mat-icon>settings</mat-icon>
-
 icons from icon duck:
 https://iconduck.com/icons/1815/electronic-arts
 https://iconduck.com/icons/61110/steam
 https://iconduck.com/icons/1868/humble-bundle
 
 
-TODO change enum strings in templates to using a method from component
+TODO:
+change enum strings in templates to using a method from component
+add search term to path
