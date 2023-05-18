@@ -6,7 +6,6 @@ import {Response} from "../model/response.model";
 import {map, Observable} from "rxjs";
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer} from "@angular/platform-browser";
-import {Seller} from "../model/enum";
 
 @Injectable()
 @Component({
