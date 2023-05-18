@@ -53,7 +53,6 @@ export class GameDetailComponent implements OnInit {
   }
 
   getSellerName(seller: string) {
-    console.log(seller, seller == Seller.STEAM.toString(), typeof seller, Seller.STEAM.toString())
     switch (seller) {
       case "HUMBLE_BUNDLE": {
         return "Humble Bundle"

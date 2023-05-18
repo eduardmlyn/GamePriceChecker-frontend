@@ -71,7 +71,13 @@ import {BaseGameListComponent} from "./shared/abstract-game-list/base-game-list.
           return localStorage.getItem("accessToken")
         },
         allowedDomains: ["localhost:8080"],
-        disallowedRoutes: ["http://localhost:8080/auth", "http://localhost:8080/game"]
+        disallowedRoutes: [
+          "http://localhost:8080/auth/login",
+          "http://localhost:8080/auth/register",
+          "http://localhost:8080/game",
+          "http://localhost:8080/game/all",
+          "http://localhost:8080/game/count"
+        ]
       }
     }),
     ReactiveFormsModule,

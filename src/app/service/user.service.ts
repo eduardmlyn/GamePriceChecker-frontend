@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {catchError, map, Observable, of} from "rxjs";
 import {HttpClient, HttpResponse} from "@angular/common/http";
-import {JwtHelperService} from "@auth0/angular-jwt";
 import {Response} from "../model/response.model";
 import {JwtModel} from "../model/jwt.model";
 
@@ -12,7 +11,7 @@ export class UserService {
   backendUrl = 'http://localhost:8080'
   page: number = 0
 
-  constructor(private _http: HttpClient, private _jwtHelper: JwtHelperService) {
+  constructor(private _http: HttpClient) {
   }
 
   editUsername(username: string): Observable<boolean> {

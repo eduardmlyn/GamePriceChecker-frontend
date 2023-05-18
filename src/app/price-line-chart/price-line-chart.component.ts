@@ -25,7 +25,6 @@ export class PriceLineChartComponent implements OnInit, OnChanges {
   public averagePriceColor = "red"
   public minimumPriceColor = "blue"
   public lineOpacity = 0.35
-  private dotOpacity = 0.4
   private unselectedOpacity = 0.1
   private selectedOpacity = 1
   private dotRadius = 3
@@ -41,19 +40,17 @@ export class PriceLineChartComponent implements OnInit, OnChanges {
     this.setYAxis()
     this.addAveragePriceLine()
     this.addMinimumPriceLine()
-    this.addMinimumPriceDots()
     this.addAveragePriceDots()
+    this.addMinimumPriceDots()
   }
 
   ngOnChanges(changes: SimpleChanges): void {
   }
 
   private sortSnapshots() {
-    console.log(this.priceSnapshots)
     this.priceSnapshots.sort((a, b) => {
       return new Date(a.date).getTime() - new Date(b.date).getTime()
     })
-    console.log(this.priceSnapshots)
   }
 
   private initializeSvg() {
@@ -70,10 +67,17 @@ export class PriceLineChartComponent implements OnInit, OnChanges {
     this.tooltip = d3.select("#price-chart")
       .append("div")
       .attr("class", "tooltip")
+      .style("position", "absolute")
+      .style("padding", "0.5rem")
       .style("border", "solid")
-      .style("border-width", "0.1rem")
+      .style("border-width", "0.15rem")
+      .style("border-color", "grey")
+      .style("border-radius", "0.5rem")
       .style("opacity", 1)
+      .style("background-color", "rgba(128, 128, 128, 0.3)")
       .style("visibility", "hidden")
+      .style("white-space", "pre")
+      .style("text-align", "center")
   }
 
   private setXAxis() {
@@ -83,8 +87,7 @@ export class PriceLineChartComponent implements OnInit, OnChanges {
 
     this.xAxis = this.chart.append("g")
       .attr("transform", `translate(0, ${this.height - this.margin})`)
-      // @ts-ignore
-      .call(d3.axisBottom(this.xScale).tickFormat(d3.timeFormat("%d.%m")).ticks(this.priceSnapshots.length))
+      .call(d3.axisBottom(this.xScale).tickFormat(d3.timeFormat("%d.%m") as any).ticks(this.priceSnapshots.length))
 
     this.chart.append("text")
       .attr("transform", "translate(" + (this.width / 2 - this.margin) + "," + this.height + ")")
@@ -99,7 +102,7 @@ export class PriceLineChartComponent implements OnInit, OnChanges {
       .range([this.height - this.margin, 0])
 
     this.yAxis = this.chart.append("g")
-      .call(d3.axisLeft(this.yScale))
+      .call(d3.axisLeft(this.yScale).tickFormat((domainValue) => `${domainValue.valueOf()}€`))
 
     this.chart.append("text")
       .attr("transform", `translate(-${this.margin / 2}, -10)`)
@@ -123,23 +126,17 @@ export class PriceLineChartComponent implements OnInit, OnChanges {
           .style('opacity', this.unselectedOpacity)
         d3.select(".avg-line")
           .style('opacity', this.selectedOpacity)
-        d3.selectAll(".avg-dot")
-          .style("opacity", this.selectedOpacity)
       })
       .on("mouseout", () => {
         d3.select(".min-line")
           .style('opacity', this.lineOpacity)
         d3.select(".avg-line")
           .style('opacity', this.lineOpacity)
-        d3.selectAll(".avg-dot")
-          .style("opacity", this.dotOpacity)
       })
       .attr("transform", "translate(" + this.margin + "," + this.margin + ")")
       .attr("d", d3.line()
-        // @ts-ignore
-        .x(d => this.xScale(new Date(d.date)))
-        // @ts-ignore
-        .y(d => this.yScale(d.averagePrice)))
+        .x((d: any) => this.xScale(new Date(d.date)))
+        .y((d: any) => this.yScale(d.averagePrice)))
   }
 
   private addMinimumPriceLine() {
@@ -157,23 +154,17 @@ export class PriceLineChartComponent implements OnInit, OnChanges {
           .style('opacity', this.unselectedOpacity)
         d3.select('.min-line')
           .style('opacity', this.selectedOpacity)
-        d3.selectAll(".min-dot")
-          .style("opacity", this.selectedOpacity)
       })
       .on("mouseout", () => {
         d3.select(".avg-line")
           .style('opacity', this.lineOpacity)
         d3.select('.min-line')
           .style('opacity', this.lineOpacity)
-        d3.selectAll(".min-dot")
-          .style("opacity", this.dotOpacity)
       })
       .attr("transform", "translate(" + this.margin + "," + this.margin + ")")
       .attr("d", d3.line()
-        // @ts-ignore
-        .x(d => this.xScale(new Date(d.date)))
-        // @ts-ignore
-        .y(d => this.yScale(d.minimumPrice)))
+        .x((d: any) => this.xScale(new Date(d.date)))
+        .y((d: any) => this.yScale(d.minimumPrice)))
   }
 
   private addAveragePriceDots() {
@@ -189,11 +180,15 @@ export class PriceLineChartComponent implements OnInit, OnChanges {
       .attr("cy", (d: any) => {
         return this.yScale(d.averagePrice)
       })
-      .style("opacity", this.dotOpacity)
       .style("fill", this.averagePriceColor)
       .on("mouseover", (_: any, d: any) => {
         this.tooltip.style("visibility", "visible")
-          .text(`Average price: ${d.averagePrice.toFixed(2)}€`)
+          .text(`Average price: ${d.averagePrice.toFixed(2)}€ \nMinimum price: ${d.minimumPrice.toFixed(2)}€`)
+      })
+      .on("mousemove", (event: any, _: any) => {
+        this.tooltip
+          .style("left", (d3.pointer(event, d3.select("#price-chart"))[0]) + "px")
+          .style("top", (d3.pointer(event, d3.select("#price-chart"))[1]) + "px")
       })
       .on("mouseout", () => {
         this.tooltip.style("visibility", "hidden")
@@ -213,11 +208,15 @@ export class PriceLineChartComponent implements OnInit, OnChanges {
       .attr("cy", (d: any) => {
         return this.yScale(d.minimumPrice)
       })
-      .style("opacity", this.dotOpacity)
       .style("fill", this.minimumPriceColor)
       .on("mouseover", (_: any, d: any) => {
         this.tooltip.style("visibility", "visible")
-          .text(`Minimum price: ${d.minimumPrice.toFixed(2)}€`)
+          .text(`Average price: ${d.averagePrice.toFixed(2)}€ \nMinimum price: ${d.minimumPrice.toFixed(2)}€`)
+      })
+      .on("mousemove", (event: any, _: any) => {
+        this.tooltip
+          .style("left", (d3.pointer(event, d3.select("#price-chart"))[0]) + "px")
+          .style("top", (d3.pointer(event, d3.select("#price-chart"))[1]) + "px")
       })
       .on("mouseout", () => {
         this.tooltip.style("visibility", "hidden")
