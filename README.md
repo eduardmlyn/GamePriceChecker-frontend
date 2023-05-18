@@ -1,4 +1,4 @@
-# GamePriceCheckerFrontend
+# GamePriceChecker-Frontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.4.
 
@@ -27,12 +27,18 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 
+## Creating image
+
+To create an image of the application simply run `docker build .`.
+In case of npm error comment out these lines like this:
+
+````
+# RUN addgroup -S builderGroup && adduser -S builderUser -G builderGroup
+# USER builderUser:builderGroup
+````
+
+
 icons from icon duck:
 https://iconduck.com/icons/1815/electronic-arts
 https://iconduck.com/icons/61110/steam
 https://iconduck.com/icons/1868/humble-bundle
-
-
-TODO:
-change enum strings in templates to using a method from component
-add search term to path
